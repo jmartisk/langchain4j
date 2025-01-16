@@ -12,6 +12,7 @@ public class McpStdioTransportIT extends McpTransportTestBase {
 
     @BeforeAll
     public static void setup() {
+        skipTestsIfJbangNotAvailable();
         String path = ClassLoader.getSystemResource("tools_mcp_server.java").getFile();
         McpTransport transport = new StdioMcpTransport.Builder()
                 .command(List.of("jbang", "--quiet", "--fresh", "run", path))

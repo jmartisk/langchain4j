@@ -1,6 +1,7 @@
 package dev.langchain4j.mcp.client.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.*;
 
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolSpecification;
@@ -15,10 +16,14 @@ import dev.langchain4j.service.tool.ToolProviderResult;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class McpTransportTestBase {
 
     static McpClient mcpClient;
+
+    private static final Logger log = LoggerFactory.getLogger(McpTransportTestBase.class);
 
     @Test
     public void verifyToolSpecifications() {
@@ -131,5 +136,15 @@ public abstract class McpTransportTestBase {
                 .findFirst()
                 .get()
                 .getValue();
+    }
+
+    static void skipTestsIfJbangNotAvailable() {
+        try {
+            new ProcessBuilder().command("jbang", "--version").start().waitFor();
+        } catch (Exception e) {
+            String message = "jbang is not available, MCP integration tests will be skipped";
+            log.warn(message);
+            assumeTrue(false, message);
+        }
     }
 }

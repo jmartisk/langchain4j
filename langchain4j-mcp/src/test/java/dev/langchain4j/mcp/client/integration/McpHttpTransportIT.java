@@ -26,6 +26,7 @@ public class McpHttpTransportIT extends McpTransportTestBase {
 
     @BeforeAll
     public static void setup() throws IOException, InterruptedException, TimeoutException {
+        skipTestsIfJbangNotAvailable();
         String path = ClassLoader.getSystemResource("tools_mcp_server.java").getFile();
         String[] command = new String[] {"jbang", "--quiet", "--fresh", "run", path};
         log.info("Starting the MCP server using command: " + Arrays.toString(command));
