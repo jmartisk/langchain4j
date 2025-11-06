@@ -15,10 +15,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class McpReconnectIT {
-
-    private static Process process;
-    private static DefaultMcpClient mcpClient;
+class McpReconnectHttpTransportIT extends McpReconnectTestBase {
 
     @BeforeAll
     static void setup() throws IOException, InterruptedException, TimeoutException {
@@ -36,20 +33,6 @@ class McpReconnectIT {
                 .build();
     }
 
-    @Test
-    void reconnect() throws IOException, TimeoutException, InterruptedException {
-        executeAToolAndAssertSuccess();
-
-        // kill the server and restart it
-        process.destroy();
-        process = startServerHttp("tools_mcp_server.java");
-
-        // give the MCP client some time to reconnect
-        Thread.sleep(5_000);
-
-        executeAToolAndAssertSuccess();
-    }
-
     @AfterAll
     static void tearDown() throws IOException, InterruptedException {
         if (mcpClient != null) {
@@ -60,12 +43,5 @@ class McpReconnectIT {
         }
     }
 
-    private void executeAToolAndAssertSuccess() {
-        ToolExecutionRequest toolExecutionRequest = ToolExecutionRequest.builder()
-                .name("echoString")
-                .arguments("{\"input\": \"abc\"}")
-                .build();
-        String result = mcpClient.executeTool(toolExecutionRequest).resultText();
-        assertThat(result).isEqualTo("abc");
-    }
+
 }

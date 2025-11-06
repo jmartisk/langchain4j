@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import dev.langchain4j.mcp.client.transport.websocket.WebSocketMcpTransport;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -209,6 +210,10 @@ public class HttpMcpTransport implements McpTransport {
         if (client != null) {
             client.dispatcher().executorService().shutdown();
         }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder {

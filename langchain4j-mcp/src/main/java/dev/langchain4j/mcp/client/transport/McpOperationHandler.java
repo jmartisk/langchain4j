@@ -88,4 +88,12 @@ public class McpOperationHandler {
     public void startOperation(Long id, CompletableFuture<JsonNode> future) {
         pendingOperations.put(id, future);
     }
+
+    public synchronized void cancelAllPendingOperations() {
+        for (CompletableFuture<JsonNode> future : pendingOperations.values()) {
+            future.completeExceptionally(new IllegalStateException("Operation cancelled due to transport failure"));
+        }
+        pendingOperations.clear();
+    }
+
 }

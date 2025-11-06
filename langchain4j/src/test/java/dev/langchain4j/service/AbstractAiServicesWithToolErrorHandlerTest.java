@@ -75,7 +75,7 @@ public abstract class AbstractAiServicesWithToolErrorHandlerTest {
 
     @ParameterizedTest
     @ValueSource(booleans = {false, true})
-    void should_propagate_exception_type_to_LLM_when_exception_without_message_is_thrown_from_tool(boolean executeToolsConcurrently) {
+    protected void should_propagate_exception_type_to_LLM_when_exception_without_message_is_thrown_from_tool(boolean executeToolsConcurrently) {
 
         // given
         RuntimeException exceptionWithoutMessage = new RuntimeException();
@@ -165,7 +165,7 @@ public abstract class AbstractAiServicesWithToolErrorHandlerTest {
 
     @ParameterizedTest
     @ValueSource(booleans = {false, true})
-    void should_fail_when_tool_throws_error(boolean executeToolsConcurrently) {
+    protected void should_fail_when_tool_throws_error(boolean executeToolsConcurrently) {
 
         // given
         String toolErrorMessage = "Weather service is unavailable";

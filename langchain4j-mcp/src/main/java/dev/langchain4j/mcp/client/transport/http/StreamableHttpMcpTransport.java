@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicReference;
+import dev.langchain4j.mcp.client.transport.websocket.WebSocketMcpTransport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -213,6 +214,10 @@ public class StreamableHttpMcpTransport implements McpTransport {
             httpClient.getClass().getMethod("close").invoke(httpClient);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) {
         }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder {
