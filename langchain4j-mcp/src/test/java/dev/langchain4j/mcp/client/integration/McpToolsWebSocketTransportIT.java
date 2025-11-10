@@ -45,11 +45,11 @@ class McpToolsWebSocketTransportIT extends McpToolsTestBase {
         }
     }
 
-    @Disabled("TODO: find out why this fails. Seems like the mcp-server-websocket extension has issues handling concurrent tool executions")
-    @Override
-    public void timeout() {
-        super.timeout();
-    }
+//    @Disabled("TODO: find out why this fails. Seems like the mcp-server-websocket extension has issues handling concurrent tool executions")
+//    @Override
+//    public void timeout() {
+//        super.timeout();
+//    }
 
 
     @Override
